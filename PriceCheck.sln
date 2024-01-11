@@ -10,6 +10,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceCheck.API", "PriceChec
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceCheck.BusinessLogic", "PriceCheck.BusinessLogic\PriceCheck.BusinessLogic.csproj", "{EB964BA9-CECE-4353-BC34-02C528A1A3CB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04417540-E6DA-4BF2-B76B-D50E79718912} = {04417540-E6DA-4BF2-B76B-D50E79718912}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceCheck.Data", "PriceCheck.Data\PriceCheck.Data.csproj", "{04417540-E6DA-4BF2-B76B-D50E79718912}"
 EndProject

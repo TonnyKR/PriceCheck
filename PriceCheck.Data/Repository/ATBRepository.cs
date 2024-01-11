@@ -20,5 +20,7 @@ namespace PriceCheck.Data.Repository
         {
             return await PCDbContext.ATB.FirstOrDefaultAsync(e => e.ProductName == name);
         }
+
+
     }
 }

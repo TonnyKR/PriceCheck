@@ -10,23 +10,28 @@ using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using System.Xml.Linq;
 using PriceCheck.BusinessLogic.Exceptions;
+using PriceCheck.Data.Interfaces;
+using PriceCheck.BusinessLogic.Dtos;
+using PriceCheck.BusinessLogic.Dtos.ATB;
 
 
 namespace PriceCheck.BusinessLogic.Services
 {
-    public class CrawlerService : ICrawlerService
+    public class ATBCrawlerService : ICrawlerService
     {
         private readonly HttpClient _httpClient;
 
         private Stack<string> _UrlToVisit = new Stack<string>();
         private List<string> _VisitedUrls = new List<string>();
-        private List<string> _products = new List<string>();
-        private string _BaseUrl = "https://shop.silpo.ua";
-        public CrawlerService(HttpClient httpClient)
+        private string _BaseUrl = "https://www.atbmarket.com";
+        private ATBService _ATBservice;
+        public ATBCrawlerService(HttpClient httpClient, ATBService ATBservice)
         {
             _httpClient = httpClient;
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11");
             _UrlToVisit.Push(_BaseUrl);
+
+            _ATBservice = ATBservice;
             //_UrlToVisit.Push("https://www.atbmarket.com/certificate/charity/images/charity-certificate/certificate_rules_uk.pdf");
         }
 
@@ -82,9 +87,9 @@ namespace PriceCheck.BusinessLogic.Services
             {
                 await AddUrlToVisit(link);
 
-                if (link != null && link.Contains("product") && !_products.Contains(link))
+                if (link != null && link.Contains("product") && _ATBservice.GetShopPositionByLink(link) == null)
                 {
-                    _products.Add(link);
+                    _ATBservice.CreateShopPosition(new ATBDto { ProductLink = link});
                 }
             }
         }

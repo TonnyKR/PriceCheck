@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PriceCheck.BusinessLogic.Dtos.ATB
+namespace PriceCheck.BusinessLogic.Dtos
 {
-    public class ATBDto : IShopDto
+    public interface IShopDto
     {
         [MaxLength(100)]
         public string? ProductName { get; set; }

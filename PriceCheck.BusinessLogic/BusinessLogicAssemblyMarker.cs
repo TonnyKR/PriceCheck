@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PriceCheck.Data.Entities
+namespace PriceCheck.BusinessLogic
 {
-    public class ATB : Shop
+    public class BusinessLogicAssemblyMarker
     {
     }
 }

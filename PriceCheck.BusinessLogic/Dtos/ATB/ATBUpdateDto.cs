@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace PriceCheck.BusinessLogic.Dtos.ATB
 {
-    public class ATBUpdateDto
+    public class ATBUpdateDto : IShopUpdateDto
     {
         [MaxLength(100)]
         public string? ProductName { get; set; }
         [MaxLength(10)]
         public string? ProductPrice { get; set; }
-        [Required]
         [MaxLength(100)]
         public string? ProductLink { get; set; }
     }

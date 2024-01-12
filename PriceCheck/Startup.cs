@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PriceCheck.API.Infrastructure.Extensions;
+using PriceCheck.BusinessLogic;
 using PriceCheck.BusinessLogic.Interfaces;
 using PriceCheck.BusinessLogic.Services;
 using PriceCheck.Data;
@@ -74,13 +75,16 @@ namespace PriceCheck.API
 
             services.AddControllers();
 
-            services.AddScoped<IRepository, EFCoreRepository>();            
+            services.AddScoped<IRepository, EFCoreRepository>();
+            services.AddScoped<IShopRepository, ShopRepository>();
+
+            services.AddScoped<ATBService>();
 
             services.AddEndpointsApiExplorer();
-            //services.AddAutoMapper(typeof(BuisnessLogicAssemblyMarker));
+            services.AddAutoMapper(typeof(BusinessLogicAssemblyMarker));
 
-            services.AddScoped<ICrawlerService, CrawlerService>();  
-            services.AddHttpClient<ICrawlerService, CrawlerService>();
+            services.AddScoped<ICrawlerService, ATBCrawlerService>();  
+            services.AddHttpClient<ICrawlerService, ATBCrawlerService>();
             services.AddSwaggerGen();
         }
 

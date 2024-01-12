@@ -10,7 +10,8 @@ namespace PriceCheck.Data.Interfaces
 {
     public interface IShopRepository : IRepository
     {
-        Task<IShop> GetByName(string name);
+        Task<TEntity> GetByName<TEntity>(string name) where TEntity : Shop;
+        Task<TEntity> GetByLink<TEntity>(string link) where TEntity : Shop;
 
     }
 }

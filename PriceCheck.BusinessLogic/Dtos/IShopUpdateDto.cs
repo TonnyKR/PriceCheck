@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PriceCheck.BusinessLogic.Dtos.ATB
+namespace PriceCheck.BusinessLogic.Dtos
 {
-    public class ATBDto : IShopDto
+    public interface IShopUpdateDto
     {
         [MaxLength(100)]
         public string? ProductName { get; set; }
         [MaxLength(10)]
         public string? ProductPrice { get; set; }
-        [Required]
         [MaxLength(100)]
-        public string ProductLink { get; set; }
+        public string? ProductLink { get; set; }
     }
 }

@@ -9,14 +9,14 @@ namespace PriceCheck.BusinessLogic.Interfaces
 {
     public interface IShopService
     {
-        Task<IShopDto> GetShopPosition(int id);
-        Task<IShopDto> GetShopPositionByName(string name);
-        Task<IShopDto> GetShopPositionByLink(string link);
-        Task<IEnumerable<IShopDto>> GetAllShopPositions();
-        Task<IShopDto> CreateShopPosition(IShopDto shopDto);
+        Task<IShopDto> GetShopProduct(int id);
+        Task<IShopDto> GetShopProductByName(string name);
+        Task<IShopDto> GetShopProductByLink(string link);
+        Task<IEnumerable<IShopDto>> GetAllShopProducts();
+        Task<IShopDto> CreateShopProduct(IShopDto shopDto);
 
-        Task UpdateShopPosition(int id, IShopUpdateDto shopUpdateDto);
+        Task UpdateShopProduct(int id, IShopUpdateDto shopUpdateDto);
 
-        Task DeleteShopPosition(int id);
+        Task DeleteShopProduct(int id);
     }
 }

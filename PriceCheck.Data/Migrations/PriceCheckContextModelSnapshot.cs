@@ -21,7 +21,7 @@ namespace PriceCheck.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PriceCheck.Data.Entities.ATBprices", b =>
+            modelBuilder.Entity("PriceCheck.Data.Entities.ATB", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,19 +35,17 @@ namespace PriceCheck.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ProductName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ProductPrice")
-                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id")
                         .HasName("Id");
 
-                    b.ToTable("ATBprices");
+                    b.ToTable("ATB");
                 });
 #pragma warning restore 612, 618
         }

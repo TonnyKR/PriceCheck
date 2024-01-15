@@ -78,17 +78,15 @@ namespace PriceCheck.API
             services.AddScoped<IRepository, EFCoreRepository>();
             services.AddScoped<IShopRepository, ShopRepository>();
 
-            services.AddScoped<ATBService>();
-
-            services.AddEndpointsApiExplorer();
-            services.AddAutoMapper(typeof(BusinessLogicAssemblyMarker));
-
+            services.AddScoped<IATBService ,ATBService>();
             services.AddScoped<ICrawlerService, ATBCrawlerService>();  
             services.AddHttpClient<ICrawlerService, ATBCrawlerService>();
+
             services.AddSwaggerGen();
+            services.AddEndpointsApiExplorer();
+            services.AddAutoMapper(typeof(BusinessLogicAssemblyMarker));
         }
 
-        //Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -96,7 +94,7 @@ namespace PriceCheck.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseExceptionHandling();
+            //app.UseExceptionHandling();
 
             app.UseRouting();
 

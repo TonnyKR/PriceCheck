@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PriceCheck.BusinessLogic.Services
 {
-    public class ATBService : IShopService
+    public class ATBService : IATBService
     {
         private readonly IShopRepository _repository;
         private readonly IMapper _mapper;
@@ -21,54 +21,54 @@ namespace PriceCheck.BusinessLogic.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<IShopDto> CreateShopPosition(IShopDto shopDto)
+        public async Task<IShopDto> CreateShopProduct(IShopDto shopDto)
         {
-            var position = _mapper.Map<ATB>(shopDto);
-            _repository.Add(position);
+            var product = _mapper.Map<ATB>(shopDto);
+            _repository.Add(product);
             await _repository.SaveChangesAsync();
-            var positionDto = _mapper.Map<ATBDto>(position);
-            return positionDto;
+            var productDto = _mapper.Map<ATBDto>(product);
+            return productDto;
 
         }
 
-        public async Task DeleteShopPosition(int id)
+        public async Task DeleteShopProduct(int id)
         {
             await _repository.Delete<ATB>(id);
             await _repository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<IShopDto>> GetAllShopPositions()
+        public async Task<IEnumerable<IShopDto>> GetAllShopProducts()
         {
-            var positionList = await _repository.GetAll<ATB>();
-            var positionDtoList = _mapper.Map<List<ATBDto>>(positionList);
-            return positionDtoList;
+            var productList = await _repository.GetAll<ATB>();
+            var productDtoList = _mapper.Map<List<ATBDto>>(productList);
+            return productDtoList;
         }
 
-        public async Task<IShopDto> GetShopPosition(int id)
+        public async Task<IShopDto> GetShopProduct(int id)
         {
-            var position  = await _repository.GetById<ATB>(id);
-            var positionDto = _mapper.Map<ATBDto>(position);
-            return positionDto;
+            var product = await _repository.GetById<ATB>(id);
+            var productDto = _mapper.Map<ATBDto>(product);
+            return productDto;
         }
 
-        public async Task<IShopDto> GetShopPositionByLink(string link)
+        public async Task<IShopDto> GetShopProductByLink(string link)
         {
-            var position = await _repository.GetByLink<ATB>(link);
-            var positionDto = _mapper.Map<ATBDto>(position);
-            return positionDto;
+            var product = await _repository.GetByLink<ATB>(link);
+            var productDto = _mapper.Map<ATBDto>(product);
+            return productDto;
         }
 
-        public async Task<IShopDto> GetShopPositionByName(string name)
+        public async Task<IShopDto> GetShopProductByName(string name)
         {
-            var position = await _repository.GetByName<ATB>(name);
-            var positionDto = _mapper.Map<ATBDto>(position);
-            return positionDto;
+            var product = await _repository.GetByName<ATB>(name);
+            var productDto = _mapper.Map<ATBDto>(product);
+            return productDto;
         }
 
-        public async Task UpdateShopPosition(int id, IShopUpdateDto shopUpdateDto)
+        public async Task UpdateShopProduct(int id, IShopUpdateDto shopUpdateDto)
         {
-            var position = await _repository.GetById<ATB>(id);
-            var positionDto = _mapper.Map<ATBDto>(position);
+            var product = await _repository.GetById<ATB>(id);
+            product = _mapper.Map(shopUpdateDto, product);
             await _repository.SaveChangesAsync();
         }
     }

@@ -9,12 +9,16 @@ namespace PriceCheck.BusinessLogic.Dtos.ATB
 {
     public class ATBDto : IShopDto
     {
+        public int? Id { get; set; }
         [MaxLength(100)]
+        [DataType(DataType.Text)]
         public string? ProductName { get; set; }
         [MaxLength(10)]
+        [DataType(DataType.Text)]
         public string? ProductPrice { get; set; }
         [Required]
         [MaxLength(100)]
+        [DataType(DataType.Text)]
         public string ProductLink { get; set; }
     }
 }

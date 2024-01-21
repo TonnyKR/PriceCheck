@@ -24,23 +24,24 @@ namespace PriceCheck.BusinessLogic.Services
 
         private Stack<string> _UrlToVisit = new Stack<string>();
         private List<string> _VisitedUrls = new List<string>();
-        //private List<ATBDto> _products;
+        private List<ATBDto>? _products;
         private string _BaseUrl = "https://www.atbmarket.com";
         private IATBService _ATBservice;
-        public ATBCrawlerService(HttpClient httpClient, IATBService ATBservice)
+        private ILinkValidator _linkValidator;
+        public ATBCrawlerService(HttpClient httpClient, IATBService ATBservice, ILinkValidator linkValidator)
         {
             _httpClient = httpClient;
             _httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11");
             _UrlToVisit.Push(_BaseUrl);
 
             _ATBservice = ATBservice;
-            //_products = _ATBservice.GetAllShopProducts().GetAwaiter().GetResult() as List<ATBDto>;
-            //_UrlToVisit.Push("https://www.atbmarket.com/certificate/charity/images/charity-certificate/certificate_rules_uk.pdf");
+            _products = _ATBservice.GetAllShopProducts().GetAwaiter().GetResult() as List<ATBDto>;
+            _linkValidator = linkValidator;
         }
 
         public async Task<string> DownloadUrl(string url)
         {
-            string responseString = null;
+            string responseString = "";
             try
             {
                 responseString = await _httpClient.GetStringAsync(url);
@@ -77,7 +78,9 @@ namespace PriceCheck.BusinessLogic.Services
         }
         public async Task AddUrlToVisit(string url)
         {
-            if (!_UrlToVisit.Contains(url) && !_VisitedUrls.Contains(url) && LinkValidator.Validate(url))
+            bool validator = _linkValidator.Validate(url);
+
+            if (validator && !_UrlToVisit.Contains(url) && !_VisitedUrls.Contains(url))
             {
                 _UrlToVisit.Push(url);
             }
@@ -89,10 +92,11 @@ namespace PriceCheck.BusinessLogic.Services
             foreach(string link in _links)
             {
                 await AddUrlToVisit(link);
-
-                if (link != null && link.Contains("product") && _ATBservice.GetShopProductByLink(link) == null)
+                bool validator = _linkValidator.Validate(link);
+                if (validator && link.Contains("product") && !_products.Any(p => p.ProductLink == link))
                 {
-                    _ATBservice.CreateShopProduct(new ATBDto { ProductLink = link});
+                    await _ATBservice.CreateShopProduct(new ATBDto { ProductLink = link});
+                    _products.Add(new ATBDto { ProductLink = link });
                 }
             }
         }
@@ -103,11 +107,6 @@ namespace PriceCheck.BusinessLogic.Services
             {
                 Console.WriteLine(_UrlToVisit.Count.ToString() + " To visit");
                 Console.WriteLine(_VisitedUrls.Count.ToString() + " Visited");
-
-                foreach (var item in _UrlToVisit)
-                {
-                    Console.WriteLine(item);
-                }
 
                 var _url = _UrlToVisit.Pop();
 

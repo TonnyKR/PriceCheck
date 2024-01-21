@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace PriceCheck.BusinessLogic.Interfaces
 {
-    public interface IParserService
+    public interface ILinkValidator
     {
-        public Task<string> ParseName(string url);
-        public Task<string> ParsePrice(string url);
+        public bool Validate(string url);
     }
 }

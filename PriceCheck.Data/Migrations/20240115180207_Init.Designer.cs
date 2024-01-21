@@ -11,7 +11,7 @@ using PriceCheck.Data;
 namespace PriceCheck.Data.Migrations
 {
     [DbContext(typeof(PriceCheckContext))]
-    [Migration("20240114200035_Init")]
+    [Migration("20240115180207_Init")]
     partial class Init
     {
         /// <inheritdoc />

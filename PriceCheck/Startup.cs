@@ -79,8 +79,11 @@ namespace PriceCheck.API
             services.AddScoped<IShopRepository, ShopRepository>();
 
             services.AddScoped<IATBService ,ATBService>();
+
+            services.AddScoped <ILinkValidator, LinkValidator>();
             services.AddScoped<ICrawlerService, ATBCrawlerService>();  
             services.AddHttpClient<ICrawlerService, ATBCrawlerService>();
+            services.AddHttpClient<IParserService, ATBParserService>();
 
             services.AddSwaggerGen();
             services.AddEndpointsApiExplorer();

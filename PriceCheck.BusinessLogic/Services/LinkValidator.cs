@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PriceCheck.BusinessLogic.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -7,26 +8,19 @@ using System.Threading.Tasks;
 
 namespace PriceCheck.BusinessLogic.Services
 {
-    static public class LinkValidator
+    public class LinkValidator : ILinkValidator
     {
-        static List<string> ExcludedPhrases = new List<string>() {"promo", "wishlist","email", "PrivacyPolicy", "oferta", "rules", "about", "garanty"};
-        public static bool Validate(string url)
+        List<string> ExcludedPhrases = new List<string>() {"promo", "wishlist", "email", "PrivacyPolicy", "oferta", "rules", "about", "garanty"};
+        public bool Validate(string url)
         {
             if (string.IsNullOrEmpty(url) || ExcludedPhrases.Any(url.Contains))
             {
                 return false;
-            } 
-/*            else if (url.StartsWith("https://") && (url.Remove(0, 8).Contains("//") || url.Remove(0, 8).Contains("///")) && ExcludedPhrases.Any(url.Contains))
-            { 
-                return false; 
             }
-            else if (!url.StartsWith("https://") && (url.Contains("//") || url.Contains("///")) && ExcludedPhrases.Any(url.Contains))
-            {
-                return false;
-            }*/
             else
-            return true;
-            
+            {
+                return true;
+            }         
         }
     }
 }

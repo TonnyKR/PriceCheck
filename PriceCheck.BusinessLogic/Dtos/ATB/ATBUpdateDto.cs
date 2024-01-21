@@ -9,11 +9,11 @@ namespace PriceCheck.BusinessLogic.Dtos.ATB
 {
     public class ATBUpdateDto : IShopUpdateDto
     {
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string? ProductName { get; set; }
         [MaxLength(10)]
         public string? ProductPrice { get; set; }
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string? ProductLink { get; set; }
     }
 }

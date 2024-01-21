@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PriceCheck.Data;
 
@@ -10,9 +11,11 @@ using PriceCheck.Data;
 namespace PriceCheck.Data.Migrations
 {
     [DbContext(typeof(PriceCheckContext))]
-    partial class PriceCheckContextModelSnapshot : ModelSnapshot
+    [Migration("20240115185055_biggerStr")]
+    partial class biggerStr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

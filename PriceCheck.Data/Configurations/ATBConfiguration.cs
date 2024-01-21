@@ -15,9 +15,9 @@ namespace PriceCheck.Data.Configurations
         {
             builder.HasKey(x => x.Id).HasName("Id");
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
-            builder.Property(x => x.ProductName).HasMaxLength(100);
+            builder.Property(x => x.ProductName).HasMaxLength(200);
             builder.Property(x => x.ProductPrice).HasMaxLength(10);
-            builder.Property(x => x.ProductLink).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.ProductLink).IsRequired().HasMaxLength(200);
 
         }
     }

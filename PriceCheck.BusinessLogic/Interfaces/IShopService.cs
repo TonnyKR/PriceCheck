@@ -15,7 +15,7 @@ namespace PriceCheck.BusinessLogic.Interfaces
         Task<IEnumerable<IShopDto>> GetAllShopProducts();
         Task<IShopDto> CreateShopProduct(IShopDto shopDto);
 
-        Task UpdateShopProduct(int id, IShopUpdateDto shopUpdateDto);
+        Task UpdateShopProduct(int? id, IShopUpdateDto shopUpdateDto);
 
         Task DeleteShopProduct(int id);
     }

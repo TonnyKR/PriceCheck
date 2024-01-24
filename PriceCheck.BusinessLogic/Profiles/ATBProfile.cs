@@ -19,6 +19,10 @@ namespace PriceCheck.BusinessLogic.Profiles
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             CreateMap<string?, string>().ConvertUsing((src, dest) => src ?? dest);
+            CreateMap<ATB, ATBUpdateDto>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<string?, string>().ConvertUsing((src, dest) => src ?? dest);
         }
     }
 }

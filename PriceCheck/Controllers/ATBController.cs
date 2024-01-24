@@ -9,10 +9,14 @@ namespace PriceCheck.API.Controllers
     public class ATBController : BaseController
     {
         private readonly IATBService _ATBService;
+        private readonly ICrawlerService _crawlerService;
+        private readonly IParserService _parserService;
 
-        public ATBController(IATBService ATBService)
+        public ATBController(IATBService ATBService, ICrawlerService crawlerService, IParserService parserService)
         {
             _ATBService = ATBService;
+            _crawlerService = crawlerService;
+            _parserService = parserService;
         }
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ATBDto))]
@@ -77,6 +81,24 @@ namespace PriceCheck.API.Controllers
                 return Ok();
             }
             catch (Exception ex) { return BadRequest(ex.Message); }
+        }
+
+        [HttpGet("Crawl")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task Crawl()
+        {
+            await _crawlerService.Run();
+
+        }
+
+        [HttpGet("Parse")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task Parse()
+        {
+            await _parserService.Run();
+
         }
     }
 }

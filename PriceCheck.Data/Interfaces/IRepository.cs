@@ -10,7 +10,7 @@ namespace PriceCheck.Data.Interfaces
 {
     public interface IRepository
     {
-        Task<TEntity> GetById<TEntity>(int id) where TEntity : BaseEntity;
+        Task<TEntity> GetById<TEntity>(int? id) where TEntity : BaseEntity;
 
         Task<IEnumerable<TEntity>> GetAll<TEntity>() where TEntity : BaseEntity;
 

@@ -65,7 +65,7 @@ namespace PriceCheck.BusinessLogic.Services
             return productDto;
         }
 
-        public async Task UpdateShopProduct(int id, IShopUpdateDto shopUpdateDto)
+        public async Task UpdateShopProduct(int? id, IShopUpdateDto shopUpdateDto)
         {
             var product = await _repository.GetById<ATB>(id);
             product = _mapper.Map(shopUpdateDto, product);

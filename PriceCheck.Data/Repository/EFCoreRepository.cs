@@ -25,7 +25,7 @@ namespace PriceCheck.Data.Repository
             return await priceCheckDbContext.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity> GetById<TEntity>(int id) where TEntity : BaseEntity
+        public async Task<TEntity> GetById<TEntity>(int? id) where TEntity : BaseEntity
         {
             return await priceCheckDbContext.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
         }

@@ -8,7 +8,8 @@ namespace PriceCheck.BusinessLogic.Interfaces
 {
     public interface IParserService
     {
-        public Task<string> ParseName(string url);
-        public Task<string> ParsePrice(string url);
+        public Task Run();
+        public Task ParseName(string url);
+        public Task ParsePrice(string url);
     }
 }

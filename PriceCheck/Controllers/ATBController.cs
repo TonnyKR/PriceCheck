@@ -31,6 +31,19 @@ namespace PriceCheck.API.Controllers
             return Ok(product);
         }
 
+        [HttpGet("/SearchByName{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ATBDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetProductsByName(string name)
+        {
+            var product = await _ATBService.GetShopProductsByFuzzyName(name);
+            if (product == null)
+            {
+                return NotFound("No product with such name");
+            }
+            return Ok(product);
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ATBDto>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -83,7 +96,7 @@ namespace PriceCheck.API.Controllers
             catch (Exception ex) { return BadRequest(ex.Message); }
         }
 
-        [HttpGet("Crawl")]
+        [HttpGet("/Crawl")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task Crawl()
@@ -92,7 +105,7 @@ namespace PriceCheck.API.Controllers
 
         }
 
-        [HttpGet("Parse")]
+        [HttpGet("/Parse")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task Parse()

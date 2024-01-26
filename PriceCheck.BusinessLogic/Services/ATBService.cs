@@ -58,11 +58,17 @@ namespace PriceCheck.BusinessLogic.Services
             return productDto;
         }
 
-        public async Task<IShopDto> GetShopProductByName(string name)
+        public async Task<IEnumerable<IShopDto>> GetShopProductsByName(string name)
         {
-            var product = await _repository.GetByName<ATB>(name);
-            var productDto = _mapper.Map<ATBDto>(product);
-            return productDto;
+            var products = await _repository.GetByName<ATB>(name);
+            var productsDto = _mapper.Map<IEnumerable<ATBDto>>(products);
+            return productsDto;
+        }
+        public async Task<IEnumerable<IShopDto>> GetShopProductsByFuzzyName(string name)
+        {
+            var products = await _repository.GetByNameFuzzy<ATB>(name);
+            var productsDto = _mapper.Map<IEnumerable<ATBDto>>(products);
+            return productsDto;
         }
 
         public async Task UpdateShopProduct(int? id, IShopUpdateDto shopUpdateDto)
@@ -71,5 +77,6 @@ namespace PriceCheck.BusinessLogic.Services
             product = _mapper.Map(shopUpdateDto, product);
             await _repository.SaveChangesAsync();
         }
+
     }
 }

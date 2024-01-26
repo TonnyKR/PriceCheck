@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FuzzySharp;
 
 namespace PriceCheck.Data.Repository
 {
@@ -22,9 +23,22 @@ namespace PriceCheck.Data.Repository
             return await PCDbContext.Set<TEntity>().FirstOrDefaultAsync(e => e.ProductLink == link);
         }
 
-        public async Task<TEntity> GetByName<TEntity>(string name) where TEntity : Shop
+        public async Task<IEnumerable<TEntity>> GetByName<TEntity>(string name) where TEntity : Shop
         {
-            return await PCDbContext.Set<TEntity>().FirstOrDefaultAsync(e => e.ProductName == name);
+            return PCDbContext.Set<TEntity>().Where(e => e.ProductName.Contains(name));
+        }
+        public async Task<IEnumerable<TEntity>> GetByNameFuzzy<TEntity>(string name) where TEntity : Shop
+        {
+            List<TEntity> resultList = (await GetByName<TEntity>(name)).ToList();
+            List<TEntity> products = await PCDbContext.Set<TEntity>().ToListAsync();
+            foreach (var product in products) 
+            {
+                if (product.ProductName != null && !resultList.Contains(product) && Fuzz.PartialRatio(name, product.ProductName) > 75)
+                {
+                    resultList.Add(product);
+                }
+            }
+            return resultList;
         }
     }
 }
